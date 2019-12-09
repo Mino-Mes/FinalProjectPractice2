@@ -33,12 +33,10 @@ public class userBank {
                     @Override
                     public void onResponse(JSONArray response) {
                             try{
-                           //   JSONArray jsonArray = response.getJSONArray("employees");
                                 for(int i=0;i<response.length();i++) {
                                    JSONObject employee =response.getJSONObject(i);
                                     Users user = new Users();
                                     user.setFname(employee.getString("name"));
-                                //    Log.d("asd", "onResponse: " + employee.getString("a"));
                                    user.setAge(1);
                                user.setEmail("filler");
                                     userArrayList.add(user);
