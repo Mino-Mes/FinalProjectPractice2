@@ -17,6 +17,13 @@ import java.util.List;
 public class RecyclerViewAdapater extends RecyclerView.Adapter<RecyclerViewAdapater.ViewHolder> {
     private Context context;
     private List<Users> userList;
+    private onItemClickListener mListener;
+
+    public interface onItemClickListener{
+        void onClick(int position);
+    }
+
+    public void setOnItemClickListener(onItemClickListener listener){mListener = listener;}
 
     public RecyclerViewAdapater(Context context,List<Users>userList) {
         this.context = context;
@@ -55,6 +62,18 @@ public class RecyclerViewAdapater extends RecyclerView.Adapter<RecyclerViewAdapa
             id=itemView.findViewById(R.id.id);
             userId=itemView.findViewById(R.id.userid);
             title=itemView.findViewById(R.id.title);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            mListener.onClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 }

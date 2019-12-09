@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -16,6 +17,7 @@ import com.example.finalprojectpractice.Model.Users;
 import com.example.finalprojectpractice.adapter.RecyclerViewAdapater;
 import com.example.finalprojectpractice.data.interfaceExample;
 import com.example.finalprojectpractice.data.userBank;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,6 +45,19 @@ public class MainActivity extends AppCompatActivity {
                 rv.setLayoutManager(new LinearLayoutManager(MainActivity.this));
                 rva=new RecyclerViewAdapater(MainActivity.this,userList);
                 rv.setAdapter(rva);
+
+                rva.setOnItemClickListener(new RecyclerViewAdapater.onItemClickListener() {
+                    @Override
+                    public void onClick(int position) {
+                       Users user = userList.get(position);
+                     Gson gson=new Gson();
+                     String contactAsString = gson.toJson(user);
+
+                       Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+                     intent.putExtra("contactAsString",contactAsString);
+                        startActivity(intent);
+                    }
+                });
             }
         });
 
